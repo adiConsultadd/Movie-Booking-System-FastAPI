@@ -38,7 +38,7 @@ A simple movie ticket booking system built with FastAPI, implementing role-based
 ### 1⃣ Clone the Repository
 
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/adiConsultadd/Movie-Booking-System-FastAPI.git
 cd movie-ticket-booking
 ```
 
