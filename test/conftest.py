@@ -46,7 +46,7 @@ def client(db_session):
         yield test_client
     app.dependency_overrides.clear()
 
-# Mock data fixtures
+# ----------------------------MOCK Fixtures----------------------------------------------------
 @pytest.fixture
 def test_movie_data():
     """Provides sample movie data for tests"""
