@@ -57,7 +57,7 @@ def test_movie_data():
     return {
         "title": "Test Movie",
         "description": "Test Description",
-        "showtime": (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S"),
+        "showtime": (datetime.now() + timedelta(days=1)),
     }
 
 

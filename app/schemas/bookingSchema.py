@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import datetime
 
 class ViewBooking(BaseModel):
     user_id: int
@@ -23,7 +23,7 @@ class BookingResponse(BaseModel):
 
 class ViewAllMovies(BaseModel):
     title: str
-    showtime: str
+    showtime: datetime
 
 
 class BookingDone(BaseModel):

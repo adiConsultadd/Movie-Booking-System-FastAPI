@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.orm import Session
 from typing import Annotated, List
+from datetime import datetime
 
 from app.database import get_db
 from app.models.movie import Movie
@@ -14,11 +15,20 @@ router = APIRouter(prefix="/admin", tags=["admin"])
 
 
 @router.get(
-    "/movies", response_model=List[ViewMovieResponse], status_code=status.HTTP_200_OK
+    "/movies", status_code=status.HTTP_200_OK
 )
 def get_movies(db: Annotated[Session, Depends(get_db)], user: dict = Depends(is_admin)):
     """Retrieve a list of all movies available in the database."""
-    return db.query(Movie).all()
+    movies = db.query(Movie).all()
+    return [
+        {
+            "id": movie.id,
+            "title": movie.title,
+            "description": movie.description,
+            "showtime": movie.showtime.strftime("%Y-%m-%d %H:%M:%S")  
+        }
+        for movie in movies
+    ]
 
 
 @router.post(
@@ -33,7 +43,8 @@ def add_movie(
     if not request.title or not request.description or not request.showtime:
         return INVALID_MOVIE_DATA
     new_movie = Movie(
-        title=request.title, description=request.description, showtime=request.showtime
+        title=request.title, description=request.description, 
+        showtime=request.showtime
     )
     db.add(new_movie)
     db.commit()

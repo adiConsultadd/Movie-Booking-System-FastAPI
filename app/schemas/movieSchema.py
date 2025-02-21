@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import datetime
 
 class ViewMovieResponse(BaseModel):
     title: str
@@ -13,7 +13,7 @@ class ViewMovieResponse(BaseModel):
 class MovieCreate(BaseModel):
     title: str
     description: str
-    showtime: str
+    showtime: datetime
 
 
 class MovieResponse(BaseModel):

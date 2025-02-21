@@ -8,6 +8,7 @@ class TestAdminRoutes:
 
     def test_create_new_movie(self, client, admin_token, test_movie_data):
         """Test adding a new movie to the database"""
+        test_movie_data["showtime"] = test_movie_data["showtime"].isoformat()
         response = client.post(
             "/admin/movies",
             headers={"Authorization": f"Bearer {admin_token}"},
