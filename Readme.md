@@ -140,6 +140,15 @@ To run a specific test file:
 
 ```bash
 pytest test/test_admin.py
+pytest test/test_auth.py
+pytest test/test_user.py
 ```
+
+```bash
+pytest -v -m admin
+pytets -v -m auth
+pytets -v -m user
+```
+
 
 ---
