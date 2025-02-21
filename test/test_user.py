@@ -1,14 +1,15 @@
 import pytest
 from fastapi import status
 
+
 @pytest.mark.user
 class TestUser:
     """Test suite for user-related endpoints"""
 
     def test_view_all_movies(self, client, normal_user_token):
         """Test viewing available movies as a normal user"""
-        response = client.get("/movies",
-            headers={"Authorization": f"Bearer {normal_user_token}"}
+        response = client.get(
+            "/movies", headers={"Authorization": f"Bearer {normal_user_token}"}
         )
         assert response.status_code == status.HTTP_200_OK
         movies = response.json()
@@ -16,14 +17,13 @@ class TestUser:
         if movies:
             assert all(key in movies[0] for key in ["title", "showtime"])
 
-
     @pytest.mark.parametrize("movie_id", [-1, 9999, 0])
     def test_book_movie_invalid_id(self, client, normal_user_token, movie_id):
         """Test booking movies with invalid movie IDs"""
         response = client.post(
             f"/movies/{movie_id}/book",
             headers={"Authorization": f"Bearer {normal_user_token}"},
-            json={"movie_id": movie_id}
+            json={"movie_id": movie_id},
         )
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
@@ -33,7 +33,7 @@ class TestUser:
         response = client.post(
             f"/movies/{movie_id}/book",
             headers={"Authorization": f"Bearer {normal_user_token}"},
-            json={"movie_id": movie_id}
+            json={"movie_id": movie_id},
         )
         assert response.status_code == status.HTTP_201_CREATED
         data = response.json()
@@ -48,7 +48,7 @@ class TestUser:
         response = client.post(
             f"/movies/{movie_id}/book",
             headers={"Authorization": f"Bearer {normal_user_token}"},
-            json={"movie_id": movie_id}
+            json={"movie_id": movie_id},
         )
         data = response.json()
         assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -59,7 +59,7 @@ class TestUser:
         movie_id = mock_booking.movie_id
         response = client.delete(
             f"/movies/{movie_id}/cancel",
-            headers={"Authorization": f"Bearer {normal_user_token}"}
+            headers={"Authorization": f"Bearer {normal_user_token}"},
         )
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
@@ -68,15 +68,14 @@ class TestUser:
         """Test canceling a booking that doesn't exist"""
         response = client.delete(
             f"/movies/{movie_id}/cancel",
-            headers={"Authorization": f"Bearer {normal_user_token}"}
+            headers={"Authorization": f"Bearer {normal_user_token}"},
         )
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
     def test_view_booking_history(self, client, normal_user_token):
         """Test viewing user's booking history"""
         response = client.get(
-            "/movies/history",
-            headers={"Authorization": f"Bearer {normal_user_token}"}
+            "/movies/history", headers={"Authorization": f"Bearer {normal_user_token}"}
         )
         assert response.status_code == status.HTTP_200_OK
         bookings = response.json()

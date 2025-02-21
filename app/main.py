@@ -15,6 +15,6 @@ app = FastAPI(
     version="1.0.0",
 )
 
-app.include_router(authRoute.router) #Auth Routes
-app.include_router(adminRoute.router) #Admin Routes
-app.include_router(userRoute.router) #User Routes
+app.include_router(authRoute.router)  # Auth Routes
+app.include_router(adminRoute.router)  # Admin Routes
+app.include_router(userRoute.router)  # User Routes
