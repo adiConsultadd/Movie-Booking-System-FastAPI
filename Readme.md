@@ -5,7 +5,7 @@ A simple movie ticket booking system built with FastAPI, implementing role-based
 ---
 
 ## 🚀 Features
-### **Authentication Endpoints
+### **Authentication Endpoints**
 - `POST /auth/register` → Create a new user
 - `POST /auth/login` → Login and obtain an access token
 
